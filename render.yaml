@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: smartpark-ai
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: FLASK_DEBUG
+        value: "0"
+      - key: MODEL_PATH
+        value: yolo11n.pt
+      - key: CONFIDENCE_THRESHOLD
+        value: "0.35"
+      - key: IOU_THRESHOLD
+        value: "0.45"
+      - key: OCCUPANCY_THRESHOLD
+        value: "0.30"
+      - key: VIDEO_FRAME_SKIP
+        value: "1"
+      - key: VIDEO_MAX_WIDTH
+        value: "1280"
+      - key: VEHICLE_CLASSES
+        value: car,motorcycle,bus,truck
+      - key: SECRET_KEY
+        value: change-me-in-render
